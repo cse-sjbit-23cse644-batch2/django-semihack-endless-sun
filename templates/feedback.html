@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback — CampusVault{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+
+        {% if already_submitted %}
+          <div class="text-center">
+            <div class="mb-3" style="font-size:3rem;">🎉</div>
+            <h5 class="fw-bold" style="color:#1B2A4A;">Feedback Submitted!</h5>
+            <p class="text-muted">Thank you for sharing your experience.</p>
+            <hr>
+            <a href="/certificate/{{ participant.certificate_hash }}/"
+               class="btn w-100"
+               style="background:#2A9D8F; color:white;">
+              Download Certificate
+            </a>
+          </div>
+
+        {% else %}
+          <h5 class="fw-bold mb-1" style="color:#1B2A4A;">Event Feedback</h5>
+          <p class="text-muted small mb-4">
+            {{ participant.event.name }}
+            <span class="mx-1">·</span>
+            {{ participant.name }}
+          </p>
+
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Rating</label>
+              <div class="d-flex gap-3 flex-wrap mt-1">
+                {% for choice in form.rating %}
+                  <div class="form-check">
+                    {{ choice.tag }}
+                    <label class="form-check-label" for="{{ choice.id_for_label }}">
+                      {{ choice.choice_label }} ★
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+              {% for error in form.rating.errors %}
+                <div class="text-danger small mt-1">{{ error }}</div>
+              {% endfor %}
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Comments</label>
+              {{ form.comments }}
+              {% for error in form.comments.errors %}
+                <div class="text-danger small mt-1">{{ error }}</div>
+              {% endfor %}
+            </div>
+
+            <button type="submit" class="btn w-100"
+                    style="background:#1B2A4A; color:white;">
+              Submit Feedback
+            </button>
+          </form>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

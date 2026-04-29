@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify Certificate — CampusVault{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 text-center">
+
+        {% if valid %}
+          <span class="badge bg-success fs-6 mb-3">✓ Valid Certificate</span>
+
+          <h5 class="fw-bold mb-1" style="color:#1B2A4A;">{{ participant.name }}</h5>
+          <p class="mb-0">{{ participant.event.name }}</p>
+          <p class="text-muted small">Student ID: {{ participant.student_id }}</p>
+          <p class="text-muted small">
+            Event Date: {{ participant.event.date|date:"F j, Y" }}
+          </p>
+
+          <hr>
+
+          <p class="text-muted small mb-3">
+            {% if participant.event.event_type == 'FEST' %}
+              Certificate of Participation
+            {% else %}
+              Interview Experience Letter
+            {% endif %}
+          </p>
+
+          <a href="/certificate/{{ participant.certificate_hash }}/"
+             class="btn btn-sm px-4"
+             style="border:2px solid #2A9D8F; color:#2A9D8F; background:transparent;">
+            Download PDF
+          </a>
+
+        {% else %}
+          <div style="font-size:3rem;" class="mb-3">❌</div>
+          <span class="badge bg-danger fs-6 mb-3">Invalid Certificate</span>
+          <p class="text-muted">
+            This hash does not match any certificate in our records.<br>
+            <span class="small">It may have been deleted or the link is incorrect.</span>
+          </p>
+          <a href="/" class="btn btn-sm btn-outline-secondary mt-2">Go Home</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

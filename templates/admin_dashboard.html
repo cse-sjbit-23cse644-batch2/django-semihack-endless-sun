@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load dict_filters %}
+
+{% block title %}Admin Dashboard — CampusVault{% endblock %}
+
+{% block content %}
+<h3 class="mb-4">Admin Dashboard</h3>
+
+{% for data in dashboard_data %}
+<div class="card mb-4 shadow-sm">
+  
+  <!-- HEADER -->
+  <div class="card-header d-flex align-items-center gap-2">
+    <strong>{{ data.event.name }}</strong>
+
+    {% if data.event.event_type == 'FEST' %}
+      <span class="badge bg-primary">Fest Event</span>
+    {% else %}
+      <span class="badge bg-warning text-dark">Placement Drive</span>
+    {% endif %}
+
+    <span class="text-muted small ms-auto">{{ data.event.date }}</span>
+  </div>
+
+  <!-- BODY -->
+  <div class="card-body p-0">
+    {% if data.participants %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover mb-0 align-middle">
+
+        <!-- TABLE HEAD -->
+        <thead class="table-light text-center">
+          <tr>
+            <th class="text-start">Student</th>
+            <th>ID</th>
+            <th>Payment</th>
+
+            {% for stage in data.stages %}
+              <th>{{ stage.name }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+
+        <!-- TABLE BODY -->
+        <tbody>
+          {% for participant in data.participants %}
+          <tr>
+
+            <!-- STUDENT -->
+             <td class="fw-semibold">
+              {{ participant.name }}
+               </td>
+           
+
+            <!-- TRANSACTION ID -->
+            <td class="text-muted small">
+              {{ participant.transaction_id }}
+            </td>
+
+            <!-- PAYMENT STATUS (FIXED HERE) -->
+            <td class="text-center">
+              {% if participant.transaction_verified %}
+                <span class="badge bg-success">Verified</span>
+              {% else %}
+                <a href="/verify-payment/{{ participant.id }}/" 
+                   class="btn btn-warning btn-sm">
+                  Verify
+                </a>
+              {% endif %}
+            </td>
+
+            <!-- ATTENDANCE MATRIX -->
+            {% with row=data.matrix|get_item:participant.id %}
+              {% for stage in data.stages %}
+              <td class="text-center">
+                <button
+                  class="toggle-btn btn btn-sm {% if row|get_item:stage.id %}btn-success{% else %}btn-danger{% endif %}"
+                  data-pid="{{ participant.id }}"
+                  data-sid="{{ stage.id }}"
+                >
+                  {% if row|get_item:stage.id %}
+                    Present
+                  {% else %}
+                    Absent
+                  {% endif %}
+                </button>
+              </td>
+              {% endfor %}
+            {% endwith %}
+
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+    {% else %}
+      <p class="text-muted p-3 mb-0">No participants registered yet.</p>
+    {% endif %}
+  </div>
+
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/ajax_toggle.js"></script>
+{% endblock %}

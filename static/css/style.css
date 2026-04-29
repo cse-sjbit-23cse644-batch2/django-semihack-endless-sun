@@ -1,0 +1,23 @@
+body {
+  background-color: #f4f6f9;
+}
+
+.navbar-brand {
+  letter-spacing: 0.5px;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.btn {
+  border-radius: 8px;
+}
+
+.badge {
+  border-radius: 6px;
+}
+
+a {
+  text-decoration: none;
+}

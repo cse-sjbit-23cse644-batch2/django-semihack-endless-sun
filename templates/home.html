@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}CampusVault — Event & Placement Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7 text-center py-5">
+
+    <div class="mb-3">
+      <span class="badge rounded-pill px-3 py-2"
+            style="background-color:#E9C46A; color:#1B2A4A; font-size:0.8rem;">
+        Fest Events &amp; Placement Drives
+      </span>
+    </div>
+
+    <h1 class="fw-bold mb-3" style="color:#1B2A4A; font-size:2.6rem;">
+      Manage. Track. <span style="color:#2A9D8F;">Certify.</span>
+    </h1>
+
+    <p class="text-muted mb-5 fs-5">
+      One platform for event registration, attendance tracking,
+      feedback collection, and verified certificate generation.
+    </p>
+
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a href="/register/"
+         class="btn btn-lg px-4"
+         style="background-color:#1B2A4A; color:white; border:none;">
+        Register for Event
+      </a>
+      <a href="/dashboard/"
+         class="btn btn-lg px-4"
+         style="border:2px solid #2A9D8F; color:#2A9D8F; background:transparent;">
+        Admin Dashboard
+      </a>
+    </div>
+
+    <div class="row mt-5 g-3 text-start">
+      <div class="col-md-4">
+        <div class="p-3 rounded-3 h-100" style="background:#f8f9fa; border-left:4px solid #2A9D8F;">
+          <div class="fw-semibold mb-1" style="color:#1B2A4A;">📋 Registration</div>
+          <div class="text-muted small">Upload receipt, get QR code instantly on confirmation.</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3 rounded-3 h-100" style="background:#f8f9fa; border-left:4px solid #E9C46A;">
+          <div class="fw-semibold mb-1" style="color:#1B2A4A;">✅ Attendance</div>
+          <div class="text-muted small">Stage-wise toggle grid with live AJAX updates.</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3 rounded-3 h-100" style="background:#f8f9fa; border-left:4px solid #1B2A4A;">
+          <div class="fw-semibold mb-1" style="color:#1B2A4A;">🏅 Certificates</div>
+          <div class="text-muted small">Hash-verified PDF certificates, scannable via QR.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

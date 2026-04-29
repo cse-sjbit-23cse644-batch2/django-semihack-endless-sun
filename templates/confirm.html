@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration Confirmed — CampusVault{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 text-center">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+
+        <span class="badge bg-success fs-6 mb-3">Registration Successful</span>
+
+        <h4 class="fw-bold mb-1" style="color:#1B2A4A;">{{ participant.name }}</h4>
+        <p class="mb-0">
+          {{ participant.event.name }}
+          {% if participant.event.event_type == 'FEST' %}
+            <span class="badge ms-1" style="background:#1B2A4A;">Fest Event</span>
+          {% else %}
+            <span class="badge ms-1 bg-warning text-dark">Placement Drive</span>
+          {% endif %}
+        </p>
+        <p class="text-muted small mt-1">Student ID: {{ participant.student_id }}</p>
+
+        <hr>
+
+        <p class="fw-semibold mb-1">Your QR Code</p>
+        <p class="text-muted small mb-3">
+          Show this at the venue — it links directly to your certificate.
+        </p>
+
+        {% if participant.qr_code %}
+          <img src="{{ participant.qr_code.url }}"
+               alt="QR Code"
+               class="img-fluid border rounded p-2 mb-3"
+               style="max-width:200px;">
+        {% else %}
+          <p class="text-danger small">QR code not generated.</p>
+        {% endif %}
+
+        <div class="alert alert-light border mt-2 text-start small">
+          <strong>Next steps:</strong> Attend the event → submit feedback →
+          download your certificate from
+          <code>/certificate/{{ participant.certificate_hash }}/</code>
+        </div>
+
+        <div class="d-flex gap-2 justify-content-center mt-3">
+          <a href="/register/" class="btn btn-outline-secondary btn-sm">
+            Register Another
+          </a>
+          <a href="/feedback/{{ participant.id }}/" class="btn btn-sm"
+             style="background:#2A9D8F; color:white;">
+            Submit Feedback
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
