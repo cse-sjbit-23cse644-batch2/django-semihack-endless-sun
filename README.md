@@ -1,31 +1,53 @@
-# 🏛️ CampusVault
+# CampusVault
 > End-to-end event and placement drive management for college campuses.
 
 ---
 
-## 📋 Project Details
+## 📌 Project Details
 
 | Field | Details |
 |---|---|
-| **Theme** | TH-XX: Campus Event & Placement Management |
-| **Team Members** | @Azmat, @Anika, @Poojitha |
-| **Live URL** | *(fill after deployment)* |
+| **Theme** | Event Lifecycle and Certification |
+| **Team Members** | @Anika Varsha Shekar, @Apoorva S, @D Poojitha, @G Samyak |
+| **Live URL** | https://campusvault-app.onrender.com |
 
 ---
 
-## ✅ Submission Checklist
+## 🗂️ Overview
 
-- [ ] Code runs with `pip install -r requirements.txt`
-- [ ] `DEBUG=False` in production settings
-- [ ] Working AJAX endpoint for attendance toggle (tested live)
-- [ ] PDF certificate export functional
-- [ ] QR code generation on registration working
-- [ ] CO-SDG mapping table completed below
-- [ ] 150-word SDG justification included
+CampusVault is a full-stack web application that digitises the end-to-end lifecycle of college events and placement drives — from student registration to verified certificate generation. Built for institutions that still rely on paper forms, manual attendance sheets, and emailed certificates, CampusVault consolidates everything into a single Django-powered platform. Admins manage events, verify payments, and track attendance; students register, submit feedback, and download tamper-proof PDFs — all without a single sheet of paper changing hands.
 
 ---
 
-## 🎯 CO-SDG Mapping Table
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Backend** | Django (MVT architecture) |
+| **Database** | SQLite (dev / hackathon), PostgreSQL-compatible |
+| **Frontend** | HTML5, CSS3, Vanilla JS (AJAX via `fetch()`) |
+| **PDF Generation** | ReportLab |
+| **Image / QR** | Pillow |
+| **Deployment** | Render (with Gunicorn + WhiteNoise) |
+| **Auth** | Django built-in admin + session auth |
+
+---
+
+## ✨ Features
+
+- **Event & Stage Management** — Admins create events with multiple stages (rounds/sessions) via the Django admin panel
+- **Student Registration** — Registration form with receipt upload, extension/size validation, and duplicate-entry checks
+- **QR Code Generation** — Unique QR code issued per participant on successful registration, used for identity verification
+- **Payment Verification** — Admin marks transactions as verified before a student can proceed through the workflow
+- **AJAX Attendance Dashboard** — Toggle per-student attendance per stage in real time without page reloads
+- **Eligibility Gating** — Certificate unlocks only when payment is verified, all stages attended, and feedback submitted
+- **PDF Certificate Generation** — ReportLab generates a Participation Certificate (FEST) or Interview Experience Letter (DRIVE) based on event type
+- **QR-based Certificate Verification** — Anyone can verify a certificate's authenticity at `/verify/<hash>/` — no login required
+- **SDG-aligned Design** — Supports SDG 4 (Quality Education) and SDG 8 (Decent Work) through digitised, accountable academic record-keeping
+
+---
+
+## 🎯 CO-SDG Mapping
 
 | Course Outcome | How This Project Demonstrates It | SDG Target Addressed |
 |---|---|---|
@@ -37,7 +59,7 @@
 
 ---
 
-## 📝 SDG Justification (150 words)
+## 📝 SDG Justification
 
 CampusVault directly advances **SDG 4 (Quality Education)** and **SDG 8 (Decent Work and Economic Growth)** by digitising the entire lifecycle of college events and placement drives. By automating registration, attendance tracking, and certificate generation, the system reduces administrative overhead and eliminates paper-based processes, making institutional record-keeping more reliable and accessible. The eligibility gating — requiring verified payment, confirmed attendance, and submitted feedback before a certificate is issued — ensures academic integrity and accountability. The QR-based certificate verification system allows employers and institutions to instantly validate participation, directly supporting SDG 8.6 by improving the credibility of student credentials. The placement drive module specifically aids students in documenting interview experience, building a verifiable portfolio of engagement. By providing a free, open-source Django template for this workflow, CampusVault enables colleges with limited resources to implement professional-grade event infrastructure, supporting SDG 4.5's goal of equal access to quality education.
 
@@ -85,42 +107,6 @@ Then open:
 - [ ] `ALLOWED_HOSTS` includes your Render domain
 - [ ] `gunicorn` added to `requirements.txt`
 - [ ] `python manage.py collectstatic` ran successfully locally
-
----
-
-## 🚀 Deployment Guide (Free Tier: Render)
-
-### 1. Sign Up & Connect
-- Go to [render.com](https://render.com) → Sign up with GitHub
-- Authorize Render to access your repositories
-
-### 2. Create Web Service
-- Click **New +** → **Web Service** → Connect this repo
-- Fill in:
-
-| Field | Value |
-|---|---|
-| Name | `campusvault-app` |
-| Region | Oregon or Frankfurt |
-| Branch | `main` |
-| Build Command | `pip install -r requirements.txt && python manage.py collectstatic --noinput` |
-| Start Command | `gunicorn campusvault.wsgi` |
-
-### 3. Environment Variables
-Click **Advanced** → **Add Environment Variable**:
-
-| Key | Value |
-|---|---|
-| `SECRET_KEY` | Generate at [miniwebtool.com/django-secret-key-generator](https://miniwebtool.com/django-secret-key-generator/) |
-| `DEBUG` | `False` |
-| `ALLOWED_HOSTS` | `*.onrender.com,localhost,127.0.0.1` |
-
-### 4. Deploy & Verify
-- Click **Create Web Service** → wait 2–4 mins for build
-- Copy your `https://....onrender.com` URL
-- ✅ Test: open URL → register a student → toggle attendance → download PDF
-
-> 💡 Every `git push` to `main` auto-triggers a rebuild. No manual restarts needed.
 
 ---
 
