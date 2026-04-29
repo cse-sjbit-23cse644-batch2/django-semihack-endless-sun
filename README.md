@@ -1,162 +1,174 @@
-# 🎯 CORE PROJECT QUESTIONS
-
-### 1. What is the main objective of your project?
-
-Answer:
-“To automate the complete event lifecycle — from registration to certificate verification — using a secure and centralized Django-based system.”
+# 🏛️ CampusVault
+> End-to-end event and placement drive management for college campuses.
 
 ---
 
-### 2. Why did you choose Django?
+## 📋 Project Details
 
-Answer:
-“Django provides built-in features like authentication, admin panel, ORM, and security, which helped us rapidly develop a scalable and secure full-stack application.”
-
----
-
-### 3. Explain MVT architecture in your project.
-
-Answer:
-“Model handles database structure like students and events, View processes logic like registration and validation, and Template handles frontend display. Django internally manages controller logic through URL routing.”
+| Field | Details |
+|---|---|
+| **Theme** | TH-XX: Campus Event & Placement Management |
+| **Team Members** | @Azmat, @Anika, @Poojitha |
+| **Live URL** | *(fill after deployment)* |
 
 ---
 
-### 4. What models did you create?
+## ✅ Submission Checklist
 
-Answer:
-“Event, Participant (Student), Attendance, Feedback, and Enrollment. These models define relationships and store all system data.”
-
----
-
-### 5. What is the role of UUID in your system?
-
-Answer:
-“UUID is used to generate a unique identifier for each certificate, ensuring it cannot be duplicated or forged.”
+- [ ] Code runs with `pip install -r requirements.txt`
+- [ ] `DEBUG=False` in production settings
+- [ ] Working AJAX endpoint for attendance toggle (tested live)
+- [ ] PDF certificate export functional
+- [ ] QR code generation on registration working
+- [ ] CO-SDG mapping table completed below
+- [ ] 150-word SDG justification included
 
 ---
 
-### 6. How does certificate verification work?
+## 🎯 CO-SDG Mapping Table
 
-Answer:
-“Each certificate has a QR code linked to a unique hash. When scanned, it hits a Django URL which checks the hash in the database and returns validity.”
-
----
-
-### 7. Why did you use AJAX?
-
-Answer:
-“To update attendance in real-time without reloading the page, improving user experience and performance.”
+| Course Outcome | How This Project Demonstrates It | SDG Target Addressed |
+|---|---|---|
+| CO1: MVT Architecture | CampusVault is built on Django's Model-View-Template pattern — models define Event/Participant/Attendance, views handle all logic, templates render the UI | SDG 4.5 |
+| CO2: Models & Forms | Five relational models (Event, Stage, Participant, Attendance, Feedback) with validated ModelForms including file type, size, and duplicate checks | SDG 9.5 |
+| CO3: AJAX & Dynamic UI | Attendance dashboard uses fetch() POST with CSRF token to toggle presence per student per stage without page reload | SDG 9.b |
+| CO4: File Handling | Receipt upload with extension and size validation; QR code generation using Pillow saved to media/qrcodes/ | SDG 4.4 |
+| CO5: PDF Generation | ReportLab generates Participation Certificate (FEST) or Interview Experience Letter (DRIVE) gated behind eligibility logic | SDG 8.6 |
 
 ---
 
-### 8. Where exactly is AJAX used?
+## 📝 SDG Justification (150 words)
 
-Answer:
-“In admin attendance marking — sending asynchronous requests to update student attendance instantly.”
-
----
-
-### 9. What is role-based access in your project?
-
-Answer:
-“Students can only access their own data, while admins have control over events, payments, and approvals using Django authentication and permissions.”
+CampusVault directly advances **SDG 4 (Quality Education)** and **SDG 8 (Decent Work and Economic Growth)** by digitising the entire lifecycle of college events and placement drives. By automating registration, attendance tracking, and certificate generation, the system reduces administrative overhead and eliminates paper-based processes, making institutional record-keeping more reliable and accessible. The eligibility gating — requiring verified payment, confirmed attendance, and submitted feedback before a certificate is issued — ensures academic integrity and accountability. The QR-based certificate verification system allows employers and institutions to instantly validate participation, directly supporting SDG 8.6 by improving the credibility of student credentials. The placement drive module specifically aids students in documenting interview experience, building a verifiable portfolio of engagement. By providing a free, open-source Django template for this workflow, CampusVault enables colleges with limited resources to implement professional-grade event infrastructure, supporting SDG 4.5's goal of equal access to quality education.
 
 ---
 
-### 10. How do you prevent fake certificates?
+## 📦 Setup Instructions
 
-Answer:
-“Using UUID-based hash, QR verification, and backend validation — certificate is generated only if all conditions are met.”
+```bash
+git clone [your-repo-url]
+cd campusvault_project
 
----
+python -m venv venv
+source venv/bin/activate      # Windows: venv\Scripts\activate
 
-# 🎯 DJANGO + TECH QUESTIONS
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
 
-### 11. What is URLConf in Django?
-
-Answer:
-“It maps URLs to views. For example, /verify/<hash>/ maps to a view that validates certificate authenticity.”
-
----
-
-### 12. What is a View in Django?
-
-Answer:
-“A view is a Python function or class that processes requests and returns responses like HTML or JSON.”
+Then open:
+- `http://127.0.0.1:8000` — main app
+- `http://127.0.0.1:8000/admin/` — admin panel (create Events and Stages here first)
 
 ---
 
-### 13. What is a Template?
+## 🔁 Full User Flow
 
-Answer:
-“A template is the frontend layer that displays dynamic data using Django template language.”
-
----
-
-### 14. What is ORM?
-
-Answer:
-“Object Relational Mapping allows interaction with database using Python code instead of SQL queries.”
-
----
-
-### 15. What is Model in Django?
-
-Answer:
-“A model defines the structure of database tables using Python classes.”
+```
+/register/                     →  Student fills form, uploads receipt
+/confirm/<hash>/               →  QR code displayed on screen
+/admin/                        →  Admin sets transaction_verified = True
+/dashboard/                    →  Admin toggles attendance per stage (AJAX, no refresh)
+/feedback/<participant_id>/    →  Student submits rating + comments
+/certificate/<hash>/           →  PDF downloads (only if all conditions met)
+/verify/<hash>/                →  Anyone can verify certificate is genuine
+```
 
 ---
 
-# 🎯 SECURITY + VALIDATION QUESTIONS
+## ✅ Pre-Deploy Checklist
 
-### 16. How is data validated in your system?
-
-Answer:
-“Through server-side validation in Django views — checking file type, duplicate transaction ID, and required conditions.”
-
----
-
-### 17. What happens if a student skips feedback?
-
-Answer:
-“The backend blocks certificate generation. The condition check fails, so access is denied.”
+- [ ] `DEBUG = False` in `settings.py`
+- [ ] `STATIC_ROOT = BASE_DIR / "staticfiles"` added to `settings.py`
+- [ ] `ALLOWED_HOSTS` includes your Render domain
+- [ ] `gunicorn` added to `requirements.txt`
+- [ ] `python manage.py collectstatic` ran successfully locally
 
 ---
 
-### 18. How do you secure admin routes?
+## 🚀 Deployment Guide (Free Tier: Render)
 
-Answer:
-“Using Django authentication and restricting access with login-required decorators and role checks.”
+### 1. Sign Up & Connect
+- Go to [render.com](https://render.com) → Sign up with GitHub
+- Authorize Render to access your repositories
+
+### 2. Create Web Service
+- Click **New +** → **Web Service** → Connect this repo
+- Fill in:
+
+| Field | Value |
+|---|---|
+| Name | `campusvault-app` |
+| Region | Oregon or Frankfurt |
+| Branch | `main` |
+| Build Command | `pip install -r requirements.txt && python manage.py collectstatic --noinput` |
+| Start Command | `gunicorn campusvault.wsgi` |
+
+### 3. Environment Variables
+Click **Advanced** → **Add Environment Variable**:
+
+| Key | Value |
+|---|---|
+| `SECRET_KEY` | Generate at [miniwebtool.com/django-secret-key-generator](https://miniwebtool.com/django-secret-key-generator/) |
+| `DEBUG` | `False` |
+| `ALLOWED_HOSTS` | `*.onrender.com,localhost,127.0.0.1` |
+
+### 4. Deploy & Verify
+- Click **Create Web Service** → wait 2–4 mins for build
+- Copy your `https://....onrender.com` URL
+- ✅ Test: open URL → register a student → toggle attendance → download PDF
+
+> 💡 Every `git push` to `main` auto-triggers a rebuild. No manual restarts needed.
+
+---
+
+## 🚨 Troubleshooting
+
+| Issue | Fix |
+|---|---|
+| Event dropdown empty on `/register/` | Go to `/admin/` → create an Event and at least one Stage first |
+| `/confirm/<hash>/` shows 404 | Registration didn't complete — check that an Event exists and form submitted without errors |
+| `TemplateDoesNotExist` | Confirm `'DIRS': [BASE_DIR / 'templates']` is in `settings.py` TEMPLATES |
+| `get_item` filter not found | Ensure `events/templatetags/__init__.py` exists and `{% load dict_filters %}` is at top of dashboard template |
+| Broken CSS/JS on Render | Add `STATIC_ROOT = BASE_DIR / "staticfiles"` to `settings.py` and run `collectstatic` |
+| `DisallowedHost` error | Set `ALLOWED_HOSTS = ['*']` temporarily or add your exact Render domain |
+| Application Error on Render | Check `gunicorn campusvault.wsgi` matches your actual project folder name |
+| DB migrations fail | Free tier uses SQLite — fine for hackathon demos, no extra config needed |
 
 ---
 
-# 🎯 ADVANCED / IMPRESSIVE QUESTIONS
+## 📁 Project Structure
 
-### 19. How can you scale this system?
-
-Answer:
-“By using PostgreSQL for large data, deploying on cloud, adding caching, and integrating APIs for mobile apps.”
-
----
-
-### 20. What improvements can be added?
-
-Answer:
-“Payment gateway integration, email notifications, mobile app support, and AI-based analytics for events.”
-
----
-
-# ⚡ BONUS RAPID-FIRE (if they push you)
-
-👉 Difference between GET and POST
-GET: fetch data
-POST: send secure data
-
-👉 Why Django over Flask
-Django: built-in features
-Flask: lightweight but requires more setup
-
-👉 What is migration
-“Process of applying model changes to database”
-
----
+```
+campusvault_project/
+├── manage.py
+├── requirements.txt
+├── README.md
+├── campusvault/          ← Django config package
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── events/               ← Main app
+│   ├── models.py         ← Event, Stage, Participant, Attendance, Feedback
+│   ├── views.py          ← All views
+│   ├── forms.py          ← RegistrationForm, FeedbackForm
+│   ├── urls.py           ← App URL patterns
+│   ├── utils.py          ← is_eligible(), generate_pdf()
+│   ├── admin.py
+│   └── templatetags/
+│       └── dict_filters.py
+├── templates/
+│   ├── base.html
+│   ├── home.html
+│   ├── register.html
+│   ├── confirm.html
+│   ├── admin_dashboard.html
+│   ├── feedback.html
+│   └── verify.html
+├── static/
+│   ├── css/style.css
+│   └── js/ajax_toggle.js
+└── media/                ← Auto-created (receipts, QR codes)
+```
