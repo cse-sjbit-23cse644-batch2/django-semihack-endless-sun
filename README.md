@@ -42,7 +42,6 @@ CampusVault is a full-stack web application that digitises the end-to-end lifecy
 - **Eligibility Gating** — Certificate unlocks only when payment is verified, all stages attended, and feedback submitted
 - **PDF Certificate Generation** — ReportLab generates a Participation Certificate (FEST) or Interview Experience Letter (DRIVE) based on event type
 - **QR-based Certificate Verification** — Anyone can verify a certificate's authenticity at `/verify/<hash>/` — no login required
-- **SDG-aligned Design** — Supports SDG 4 (Quality Education) and SDG 8 (Decent Work) through digitised, accountable academic record-keeping
 
 ---
 
