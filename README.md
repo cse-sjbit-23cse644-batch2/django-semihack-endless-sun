@@ -1,5 +1,5 @@
 # CampusVault
-> End-to-end event and placement drive management for college campuses.
+End-to-end event and placement drive management for college campuses.
 
 ---
 
@@ -19,7 +19,7 @@ CampusVault is a full-stack web application that digitises the end-to-end lifecy
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
