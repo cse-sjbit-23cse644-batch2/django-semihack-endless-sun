@@ -3,7 +3,7 @@
 
 ---
 
-## 📌 Project Details
+## Project Details
 
 | Field | Details |
 |---|---|
@@ -13,7 +13,7 @@
 
 ---
 
-## 🗂️ Overview
+## Overview
 
 CampusVault is a full-stack web application that digitises the end-to-end lifecycle of college events and placement drives — from student registration to verified certificate generation. Built for institutions that still rely on paper forms, manual attendance sheets, and emailed certificates, CampusVault consolidates everything into a single Django-powered platform. Admins manage events, verify payments, and track attendance; students register, submit feedback, and download tamper-proof PDFs — all without a single sheet of paper changing hands.
 
@@ -28,12 +28,11 @@ CampusVault is a full-stack web application that digitises the end-to-end lifecy
 | **Frontend** | HTML5, CSS3, Vanilla JS (AJAX via `fetch()`) |
 | **PDF Generation** | ReportLab |
 | **Image / QR** | Pillow |
-| **Deployment** | Render (with Gunicorn + WhiteNoise) |
-| **Auth** | Django built-in admin + session auth |
+| **Deployment** | Render (with Gunicorn) |
 
 ---
 
-## ✨ Features
+## Features
 
 - **Event & Stage Management** — Admins create events with multiple stages (rounds/sessions) via the Django admin panel
 - **Student Registration** — Registration form with receipt upload, extension/size validation, and duplicate-entry checks
@@ -47,7 +46,7 @@ CampusVault is a full-stack web application that digitises the end-to-end lifecy
 
 ---
 
-## 🎯 CO-SDG Mapping
+## CO-SDG Mapping
 
 | Course Outcome | How This Project Demonstrates It | SDG Target Addressed |
 |---|---|---|
@@ -59,13 +58,13 @@ CampusVault is a full-stack web application that digitises the end-to-end lifecy
 
 ---
 
-## 📝 SDG Justification
+## SDG Justification
 
 CampusVault directly advances **SDG 4 (Quality Education)** and **SDG 8 (Decent Work and Economic Growth)** by digitising the entire lifecycle of college events and placement drives. By automating registration, attendance tracking, and certificate generation, the system reduces administrative overhead and eliminates paper-based processes, making institutional record-keeping more reliable and accessible. The eligibility gating — requiring verified payment, confirmed attendance, and submitted feedback before a certificate is issued — ensures academic integrity and accountability. The QR-based certificate verification system allows employers and institutions to instantly validate participation, directly supporting SDG 8.6 by improving the credibility of student credentials. The placement drive module specifically aids students in documenting interview experience, building a verifiable portfolio of engagement. By providing a free, open-source Django template for this workflow, CampusVault enables colleges with limited resources to implement professional-grade event infrastructure, supporting SDG 4.5's goal of equal access to quality education.
 
 ---
 
-## 📦 Setup Instructions
+## Setup Instructions
 
 ```bash
 git clone [your-repo-url]
@@ -86,7 +85,7 @@ Then open:
 
 ---
 
-## 🔁 Full User Flow
+## Full User Flow
 
 ```
 /register/                     →  Student fills form, uploads receipt
@@ -100,7 +99,7 @@ Then open:
 
 ---
 
-## ✅ Pre-Deploy Checklist
+## Pre-Deploy Checklist
 
 - [ ] `DEBUG = False` in `settings.py`
 - [ ] `STATIC_ROOT = BASE_DIR / "staticfiles"` added to `settings.py`
@@ -110,7 +109,7 @@ Then open:
 
 ---
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 | Issue | Fix |
 |---|---|
@@ -125,7 +124,7 @@ Then open:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 campusvault_project/
