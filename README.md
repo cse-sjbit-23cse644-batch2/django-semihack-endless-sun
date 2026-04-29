@@ -67,7 +67,7 @@ CampusVault directly advances **SDG 4 (Quality Education)** and **SDG 8 (Decent 
 ## Setup Instructions
 
 ```bash
-git clone [your-repo-url]
+git clone [https://github.com/cse-sjbit-23cse644-batch2/django-semihack-endless-sun.git]
 cd campusvault_project
 
 python -m venv venv
